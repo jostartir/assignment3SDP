@@ -16,7 +16,7 @@ public class TelegramMessageSender implements MessageSender{
             return false;
         }
         System.out.println("Telegram -> " + recipient);
-        System.out.println("<b>" + title + "</b>");
+        System.out.println("title: " + title);
         System.out.println(body);
 
         return true;
