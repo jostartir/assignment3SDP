@@ -9,20 +9,12 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        MessageSender telegram = new TelegramMessageSender(true);
+        MessageSender unavailableTelegram = new TelegramMessageSender(false);
+        MessageSender fallbackSms = new SMSMessageSender(true);
 
-        MessageSender email = new EmailMessageSender(
-                true,
-                "Notification Gateway"
-        );
+        Notification urgent = new UrgentNotification(unavailableTelegram,fallbackSms);
 
-        Notification notification = new UrgentNotification(telegram);
-
-        notification.send("user123", "Server is down!");
-
-        notification.setSender(email);
-
-        notification.send("user@example.com", "Server is down!");
+        urgent.send("heeloneiugh@gmail.com", "Server is down!");
 
     }
 }
