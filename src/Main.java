@@ -1,13 +1,41 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
+import notification.EncryptedNotification;
+import notification.Notification;
+import notification.ScheduledBatchNotification;
+import notification.UrgentNotification;
+import notification.sender.*;
 
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
+import java.util.List;
+
+
+public class Main {
+    public static void main(String[] args) {
+        MessageSender telegram = new TelegramMessageSender(false);
+        MessageSender sms = new SMSMessageSender(true);
+
+        Notification notification = new UrgentNotification(telegram, sms);
+
+        notification.send("+77001234567", "Server is down!");
+
+        System.out.println();
+        System.out.println("-------------");
+        System.out.println();
+        MessageSender email = new EmailMessageSender(true, "Notification Gateway");
+
+        Notification encrypted = new EncryptedNotification(email);
+
+        encrypted.send("user@example.com", "Hello");
+
+        System.out.println();
+        System.out.println("---------------");
+        System.out.println();
+
+        MessageSender smss = new SMSMessageSender(true);
+
+        ScheduledBatchNotification batch = new ScheduledBatchNotification(
+                smss,
+                List.of("+77001111111", "+77002222222", "+77003333333")
+        );
+
+        batch.sendBatch("Reminder: meeting at 15:00");
     }
 }
