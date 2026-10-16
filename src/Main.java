@@ -1,7 +1,4 @@
-import notification.EncryptedNotification;
-import notification.Notification;
-import notification.ScheduledBatchNotification;
-import notification.UrgentNotification;
+import notification.*;
 import notification.sender.*;
 
 import java.util.List;
@@ -9,12 +6,11 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        MessageSender unavailableTelegram = new TelegramMessageSender(false);
-        MessageSender fallbackSms = new SMSMessageSender(true);
+        MessageSender push = new PushNotificationSender(true);
 
-        Notification urgent = new UrgentNotification(unavailableTelegram,fallbackSms);
+        Notification market = new MarketingNotification(push);
 
-        urgent.send("heeloneiugh@gmail.com", "Server is down!");
+        market.send("Hello","HELLOO MY FRIENDOOOO");
 
     }
 }
