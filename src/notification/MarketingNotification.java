@@ -12,7 +12,7 @@ public class MarketingNotification extends Notification{
     @Override
     public void send(String recipient, String message){
 
-        boolean success = sender.sendMessage(recipient,"Social Offer","[PROMO]" + message);
+        boolean success = sender.sendMessage(recipient,"Special offer","[PROMO]" + message);
 
         if (!success){
             System.out.println("Marketing notification delivery is failed");
